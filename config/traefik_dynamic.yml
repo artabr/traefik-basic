@@ -1,0 +1,19 @@
+# Declaring the user list
+http:
+    middlewares:
+        simpleAuth:
+            basicAuth:
+                users:
+                    - "test:$apr1$H6uskkkW$IgXLP6ewTrSuBkTrqE8wj/"
+
+    ## Dynamic configuration
+    routers:
+        api:
+            rule: "Host(`monitor.your_domain`)"
+            entryPoints:
+                - "websecure"
+            middlewares:
+                - simpleAuth
+            service: "api@internal"
+            tls:
+                certResolver: lets-encrypt
